@@ -1,14 +1,14 @@
 
 function analyserProfilUtilisateur(obj) {
   return {
-    id: Number(obj.id),
-    actif: obj.actif === "true" || obj.actif === true,
+    id: parseInt(obj.id) || 0,
+    actif: obj.actif == "true" || obj.actif === true,
     nom: typeof obj.nom === "string" ? obj.nom : "",
     email: typeof obj.email === "string" ? obj.email : null,
     naissance: new Date(obj.naissance),
     preferences: typeof obj.preferences === "object" && obj.preferences !== null ? obj.preferences : {},
     scores: Array.isArray(obj.scores)
-      ? obj.scores.map(score => Number(score))
+      ? obj.scores.map(score => (score))
       : [],
     amis: Array.isArray(obj.amis)
       ? obj.amis.map(ami => ({
@@ -22,20 +22,21 @@ function analyserProfilUtilisateur(obj) {
 
 
 const brut = {
-  id: "123",                  // devrait être un number
-  actif: "true",              // devrait être un boolean
+  id: "12x",                  // devrait être un number
+  actif: "tru",              // devrait être un boolean
   nom: "Amadou Coulibaly",
   email: undefined,           // devrait être une string ou null
   naissance: "2003-01-17",    // string ISO date → doit devenir un objet Date
   preferences: null,          // doit être un objet par défaut s’il est null
   scores: [10, "12", 13],     // doit contenir seulement des numbers
-//   token: Symbol("secret"), // à retirer de l’objet final
+  token: Symbol("secret"), // à retirer de l’objet final
   amis: [
     { id: 1, nom: "Fatou", actif: "false" },
     { id: "2", nom: "Yao", actif: true },
  ]
 };
 
+console.log(analyserProfilUtilisateur(brut));
 
 
 // {
